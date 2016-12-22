@@ -1,7 +1,14 @@
+import 'package:js/js_util.dart';
+
 import 'toy_facade.dart';
+
 main() {
-    // this line gives the error that JsObjectImpl has no accessor [].
-    // I understand why I'm getting that error, but not *how* I can access the
-    // properties of a plain javascript object from dart.
-    print(Toy.getData()["arbitrary_prop"]);
+  // When compiled to JS, this ~roughly means `log(window.toy.getData())` :)
+  // I've also filed https://github.com/dart-lang/sdk/issues/28194 for you.
+  var properties = toy.getData();
+
+  // `getProperty` basically delegates directly to JS.
+  //
+  // See package:js/js_util.dart.
+  print(getProperty(properties, 'arbitrary_prop'));
 }

@@ -1,5 +1,9 @@
-toy = {
-    getData: function () {
-        return {"arbitrary_prop": "i'm the data"};
+window.toy = (function() {
+  return {
+    getData: function() {
+      return {
+        'arbitrary_prop': 'Woot!'
+      };
     }
-}
+  };
+})();
