@@ -7,19 +7,16 @@ import 'package:js/js_util.dart';
 /// A workaround to converting an object from JS to a Dart Map.
 Map jsToMap(jsObject) {
   return new Map.fromIterable(
-    _objectJsType.keys(jsObject),
+    _getKeysOfObject(jsObject),
     value: (key) => getProperty(jsObject, key),
   );
 }
 
-@JS('Object')
-external _ObjectStatics get _objectJsType;
-
-@JS()
-@anonymous
-abstract class _ObjectStatics {
-  external List<String> keys(jsObject);
-}
+// Both of these interfaces exist to call `Object.keys` from Dart.
+//
+// But you don't use them directly. Just see `jsToMap`.
+@JS('Object.keys')
+external List<String> _getKeysOfObject(jsObject);
 
 // This isn't a real "class" in JavaScript, but an anonymous object.
 //
